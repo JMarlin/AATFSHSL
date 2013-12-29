@@ -1,0 +1,898 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<level>
+        <sound>
+            <file>game/level1/res/background.mid</file>
+            <handle>bgmusic</handle>
+			<looped>true</looped>
+        </sound>
+        
+        <sound>
+            <file>game/level1/res/seventeen screws.mid</file>
+            <handle>seventeen</handle>
+			<looped>true</looped>
+        </sound>
+            
+		<sound>
+			<file>game/level1/res/fall.mid</file>
+			<handle>closet_fall</handle>
+			<looped>false</looped>
+		</sound>
+			
+        <sound>
+            <file>game/level1/res/start.wav</file>
+            <handle>start</handle>
+        </sound>
+		
+		<sound>
+            <file>game/level1/res/aaron_turntable.wav</file>
+            <handle>aaron_turntable</handle>
+        </sound>
+		
+		<sound>
+            <file>game/level1/res/aaron_spin.wav</file>
+            <handle>aaron_spin</handle>
+        </sound>
+		
+		<sound>
+            <file>game/level1/res/aaron_record.wav</file>
+            <handle>aaron_record</handle>
+        </sound>
+		
+		<sound>
+            <file>game/level1/res/aaron_poster.wav</file>
+            <handle>aaron_poster</handle>
+        </sound>
+		
+		<sound>
+            <file>game/level1/res/aaron_door.wav</file>
+            <handle>aaron_door</handle>
+        </sound>
+		
+		<sound>
+            <file>game/level1/res/aaron_hatchet.wav</file>
+            <handle>aaron_hatchet</handle>
+        </sound>
+		
+		<sound>
+            <file>game/level1/res/aaron_closet.wav</file>
+            <handle>aaron_closet</handle>
+        </sound>
+		
+		<sound>
+            <file>game/level1/res/narrator_turntable.wav</file>
+            <handle>narrator_turntable</handle>
+        </sound>
+		
+		<sound>
+            <file>game/level1/res/narrator_spin.wav</file>
+            <handle>narrator_spin</handle>
+        </sound>
+		
+		<sound>
+            <file>game/level1/res/narrator_record.wav</file>
+            <handle>narrator_record</handle>
+        </sound>
+		
+		<sound>
+            <file>game/level1/res/narrator_poster.wav</file>
+            <handle>narrator_poster</handle>
+        </sound>
+		
+		<sound>
+            <file>game/level1/res/narrator_door.wav</file>
+            <handle>narrator_door</handle>
+        </sound>
+		
+		<sound>
+            <file>game/level1/res/narrator_intro.wav</file>
+            <handle>narrator_intro</handle>
+        </sound>
+		
+		<sound>
+            <file>game/level1/res/narrator_closet.wav</file>
+            <handle>narrator_closet</handle>
+        </sound>
+		
+		<sound>
+            <file>game/level1/res/last_shirt.wav</file>
+            <handle>last_shirt</handle>
+        </sound>
+		
+		<sound>
+            <file>game/level1/res/laundry_hamper.wav</file>
+            <handle>laundry_hamper</handle>
+        </sound>
+		
+		<sound>
+            <file>game/level1/res/dirty_shirt.wav</file>
+            <handle>dirty_shirt</handle>
+        </sound>
+		
+		<sound>
+            <file>game/level1/res/clean_laundry.wav</file>
+            <handle>clean_laundry</handle>
+        </sound>
+            
+		<thing>
+			<image>game/global/ui/fadeout</image>
+			<handle>fadeout</handle>
+			<z>20</z>
+			<looped>false</looped>
+			<playing>false</playing>
+		</thing>
+			
+        <thing>
+            <image>game/level1/res/room.png</image>
+            <handle>background</handle>
+            <onclick>
+               if(AEngine2.getTool() == "walk") AEngine2.walkTo(AEngine2.mousex, AEngine2.mousey, "");
+            </onclick>
+            <z>0</z>
+        </thing>
+        
+        <thing>
+            <handle>blackness</handle>
+            <image>game/level1/res/blackness.png</image>
+            <z>4</z>
+        </thing>
+        
+    	<thing>
+    	    <handle>poster</handle>
+    	    <image>game/level1/res/poster.png</image>
+    	    <z>2</z>
+			<onclick>viewPoster();</onclick>
+    	</thing>
+
+        <thing>
+            <handle>door</handle>
+            <image>game/level1/res/door.png</image>
+            <z>2</z>
+			<onclick>
+				if(AEngine2.getTool() == "use" || AEngine2.getTool() == "walk") AEngine2.walkTo(70,341,"openDoor();");
+				if(AEngine2.getTool() == "look") {
+					if($closet_open.getValue() == "true"){
+						AEngine2.printLine("NARRATOR: You gaze at your bedroom door and lovingly reminisce upon your shared history: All of those times that it prevented people from entering your room.");
+						AEngine2.interactive = false;
+						AEngine2.getSound("narrator_door").play();
+						AEngine2.addTrigger(AEngine2.now() + 9079 , "AEngine2.interactive = true;");
+					}else{
+						AEngine2.printLine("AARON: What do you want? It's a door.");
+						AEngine2.interactive = false;
+						AEngine2.getSound("aaron_door").play();
+						AEngine2.addTrigger(AEngine2.now() + 1916 , "AEngine2.interactive = true;");
+					}
+				}
+			</onclick>
+        </thing>
+	
+        <thing> 
+        	<handle>closetinner</handle>
+        	<image>game/level1/res/clawsit.png</image>
+        	<z>4</z>
+        	<hidden>true</hidden>
+        	<onclick>
+				if(AEngine2.getTool() == "shirtItem0" || AEngine2.getTool() == "shirtItem1" || AEngine2.getTool() == "shirtItem2" || AEngine2.getTool() == "shirtItem3" || AEngine2.getTool() == "shirtItem4") {
+					putShirtAway();
+				}else if(AEngine2.getTool() != "walk"){
+					insultPlayer();
+				}
+        	</onclick>
+        </thing>
+        
+        <thing> 
+        	<handle>basketshirt1</handle>
+        	<image>game/level1/res/basketshirt1.png</image>
+        	<z>5</z>
+        	<hidden>true</hidden>
+        </thing>
+        
+       <thing> 
+        	<handle>basketshirt2</handle>
+        	<image>game/level1/res/basketshirt2.png</image>
+        	<z>6</z>
+        	<hidden>true</hidden>
+        </thing> 
+         
+        <thing> 
+        	<handle>basketshirt3</handle>
+        	<image>game/level1/res/basketshirt3.png</image>
+        	<z>7</z>
+        	<hidden>true</hidden>
+        </thing> 
+        
+        <thing> 
+        	<handle>basketshirt4</handle>
+        	<image>game/level1/res/basketshirt4.png</image>
+        	<z>8</z>
+        	<hidden>true</hidden>
+        </thing> 
+         
+        <thing> 
+        	<handle>basketshirt5</handle>
+        	<image>game/level1/res/basketshirt5.png</image>
+        	<z>9</z>
+        	<hidden>true</hidden>
+        </thing>  
+         
+        <thing> 
+        	<handle>backbutton</handle>
+        	<image>game/level1/res/back.png</image>
+        	<x>520</x>
+        	<y>326</y>
+        	<z>10</z>
+        	<onclick>backButton();</onclick>
+        	<hidden>true</hidden>
+        </thing>  
+         
+        <!-- Don't need this right now                       
+        <thing>
+            <handle>shaman</handle>
+            <image>game/global/shamanhead/head.png</image>
+            <x>0</x>
+            <y>0</y>
+            <z>3</z>
+            <onclick>AEngine2.walkTo(640, 355, "");</onclick>
+        </thing>
+        -->
+        
+        <thing>
+            <image>game/level1/res/shirt1.png</image>
+            <handle>shirt1</handle>
+            <onclick>
+                if(AEngine2.getTool() == "use") AEngine2.walkTo(290,335,"aaronUse(); getShirt(1);"); 
+                if(AEngine2.getTool() == "walk") AEngine2.walkTo(290,335,"");
+                if(AEngine2.getTool() == "look") { $dirty_shirt.play();AEngine2.printLine("AARON: It's just a dirty old shirt."); }
+            </onclick>
+            <x>243</x>
+            <y>248</y>
+            <z>1</z>
+        </thing>
+        
+        <thing>
+            <image>game/level1/res/shirt2.png</image>
+            <handle>shirt2</handle>
+            <onclick>
+                if(AEngine2.getTool() == "use") AEngine2.walkTo(110,335,"aaronUse(); getShirt(2);"); 
+                if(AEngine2.getTool() == "walk") AEngine2.walkTo(110,335,"");
+                if(AEngine2.getTool() == "look") { $dirty_shirt.play(); AEngine2.printLine("AARON: It's just a dirty old shirt."); }
+            </onclick>
+            <x>97</x>
+            <y>298</y>
+            <z>1</z>
+        </thing>
+        
+        <thing>
+            <image>game/level1/res/shirt3.png</image>
+            <handle>shirt3</handle>
+            <onclick>
+                if(AEngine2.getTool() == "use") AEngine2.walkTo(300,335,"aaronUse(); getShirt(3);"); 
+                if(AEngine2.getTool() == "walk") AEngine2.walkTo(300,335,"");
+                if(AEngine2.getTool() == "look") { $dirty_shirt.play();AEngine2.printLine("AARON: It's just a dirty old shirt."); }
+            </onclick>
+            <x>288</x>
+            <y>321</y>
+            <z>1</z>
+        </thing>
+        
+        <thing>
+            <image>game/level1/res/shirt4.png</image>
+            <handle>shirt4</handle>
+            <onclick>
+                if(AEngine2.getTool() == "use") AEngine2.walkTo(450,320,"aaronUse(); getShirt(4);"); 
+                if(AEngine2.getTool() == "walk") AEngine2.walkTo(450,320,"");
+                if(AEngine2.getTool() == "look") {  $dirty_shirt.play(); AEngine2.printLine("AARON: It's just a dirty old shirt."); }
+            </onclick>
+            <x>436</x>
+            <y>306</y>
+            <z>1</z>
+        </thing>
+        
+        <thing>
+            <image>game/level1/res/shirt5.png</image>
+            <handle>shirt5</handle>
+            <onclick>
+                if(AEngine2.getTool() == "use") AEngine2.walkTo(400,300,"viewCabinet();"); 
+                if(AEngine2.getTool() == "walk") AEngine2.walkTo(400,300,"");
+                if(AEngine2.getTool() == "look"){ $dirty_shirt.play(); AEngine2.printLine("AARON: It's just a dirty old shirt."); }
+            </onclick>
+            <x>386</x>
+            <y>231</y>
+            <z>2</z>
+        </thing>
+        
+        <thing>
+            <image>game/level1/res/closetclosed.png</image>
+            <handle>closet</handle>
+            <onclick>
+                if(AEngine2.getTool() == "use") AEngine2.walkTo(560,320,"openCloset();");
+				if(AEngine2.getTool() == "look") {
+					if($closet_open.getValue() == "true"){
+						AEngine2.printLine("NARRATOR: It appears to be some sort of wooden contrivance used, perhaps, to keep rogue clothing at bay.");
+						AEngine2.interactive = false;
+						AEngine2.getSound("narrator_closet").play();
+						AEngine2.addTrigger(AEngine2.now() + 6246, "AEngine2.interactive = true;");
+					}else{
+						AEngine2.printLine("AARON: That's my closet. It does the usual things.");
+						AEngine2.interactive = false;
+						AEngine2.getSound("aaron_closet").play();
+						AEngine2.addTrigger(AEngine2.now() + 2659, "AEngine2.interactive = true;");
+					}
+				}
+            </onclick>
+            <x>574</x>
+            <y>30</y>
+            <z>3</z>
+        </thing>
+        
+		<thing>
+			<handle>cabfront</handle>
+			<image>game/level1/res/cabfront.png</image>
+			<onclick>
+				if(AEngine2.getTool() == "use" || AEngine2.getTool() == "look")
+					AEngine2.walkTo(400,300,"viewCabinet();");
+			</onclick>
+			<z>1</z>
+			<x>390</x>
+			<y>243</y>
+		</thing>
+		<thing>
+			<handle>cabtop</handle>
+			<image>game/level1/res/cabtop.png</image>
+			<onclick>
+				if(AEngine2.getTool() == "use" || AEngine2.getTool() == "look")
+					AEngine2.walkTo(400,300,"viewTurntable();");
+			</onclick>
+			<z>1</z>
+			<x>390</x>
+			<y>219</y>
+		</thing>
+		
+         <thing> 
+        	<handle>cabinet</handle>
+        	<image>game/level1/res/cabnet.png</image>
+        	<z>4</z>
+        	<hidden>true</hidden>
+        </thing>
+        
+		<thing> 
+        	<handle>turntable</handle>
+        	<image>game/level1/res/turntable.png</image>
+        	<z>4</z>
+        	<hidden>true</hidden>
+			<onclick>
+				if(AEngine2.getTool() == "churro") {
+					startRecord();
+				}else if(AEngine2.getTool() == "look") {
+					if($closet_open.getValue() == "true"){
+						AEngine2.printLine("NARRATOR: This is your turntable. It is used to turn the tables on your enemies. As an added feature, it is also capable of playing records.");
+						AEngine2.interactive = false;
+						AEngine2.getSound("narrator_turntable").play();
+						AEngine2.addTrigger(AEngine2.now() + 8220 , "AEngine2.interactive = true;");
+					}else{
+						AEngine2.printLine("AARON: It's some sort of incredibly large CD player.");
+						AEngine2.interactive = false;
+						AEngine2.getSound("aaron_turntable").play();
+						AEngine2.addTrigger(AEngine2.now() + 3541 , "AEngine2.interactive = true;");
+					}
+				}else if(AEngine2.getTool() != "walk"){
+					insultPlayer();
+				}
+			</onclick>
+        </thing>
+		
+		<thing> 
+        	<handle>spin_record</handle> 
+        	<image>game/level1/res/spin_record</image>
+        	<z>5</z>
+        	<hidden>true</hidden>
+			<looped>true</looped>
+			<playing>true</playing>
+			<onclick>
+				if(AEngine2.getTool() == "use") {
+					stopRecord();
+				}else if(AEngine2.getTool() == "look") {
+					if($closet_open.getValue() == "true"){
+						AEngine2.printLine("NARRATOR: Judging by the state of the turntable, you have figured out how to play a point and click adventure game. Good job.");
+						AEngine2.interactive = false;
+						AEngine2.getSound("narrator_spin").play();
+						AEngine2.addTrigger(AEngine2.now() + 6687 , "AEngine2.interactive = true;");
+					}else{
+						AEngine2.printLine("AARON: It appears that some sort of incredibly large CD is playing.");
+						AEngine2.interactive = false;
+						AEngine2.getSound("aaron_spin").play();
+						AEngine2.addTrigger(AEngine2.now() + 3483 , "AEngine2.interactive = true;");
+					}
+				}else if(AEngine2.getTool() != "walk"){
+					insultPlayer();
+				}
+			</onclick>
+        </thing>
+		
+		<thing>
+			<handle>posterenlarge</handle>
+			<image>game/level1/res/posterenlarge.png</image>
+			<z>5</z>
+			<hidden>true</hidden>
+		</thing>
+			
+		<thing> 
+        	<handle>narrator_intro</handle> 
+        	<image>game/level1/res/narrator_intro</image>
+        	<z>6</z>
+        	<hidden>true</hidden>
+			<looped>false</looped>
+			<playing>false</playing>
+        </thing>	
+		
+        <thing> 
+        	<handle>cabshirt</handle>
+        	<image>game/level1/res/cabshirt.png</image>
+        	<z>6</z>
+        	<hidden>true</hidden>
+        	<onclick>getShirt(5);</onclick>
+        </thing>
+        
+        <thing>
+            <handle>record</handle>
+            <image>game/level1/res/record.png</image>
+            <x>156</x>
+            <y>38</y>
+            <z>5</z>
+			<hidden>true</hidden>
+            <onclick>
+                if(AEngine2.getTool() == "use") getRecord();
+				if(AEngine2.getTool() == "look") {
+					if($closet_open.getValue() == "true"){
+						AEngine2.printLine("NARRATOR: It's the newest Churromonger album that you saved up for a whole month to buy. You enjoy the lack of subtlety in its content almost as much as you enjoy the way in which your parents hate it.");
+						AEngine2.interactive = false;
+						AEngine2.getSound("narrator_record").play();
+						AEngine2.addTrigger(AEngine2.now() + 9439 , "AEngine2.interactive = true;");
+					}else{
+						AEngine2.printLine("AARON: It's some sort of incredibly large CD.");
+						AEngine2.interactive = false;
+						AEngine2.getSound("aaron_record").play();
+						AEngine2.addTrigger(AEngine2.now() + 2659 , "AEngine2.interactive = true;");
+					}
+				}
+            </onclick>
+        </thing>
+            
+        <thing>
+            <handle>aaron</handle>
+            <image>game/global/aaron</image>
+            <x>-10</x>
+            <y>145</y>
+            <z>2</z>
+            <scale>1</scale>
+        </thing>
+        
+        <walkmap>game/level1/res/walkmap.png</walkmap>
+            
+	<script>
+            
+                var $music = AEngine2.getSound("bgmusic");
+                var $music2 = AEngine2.getSound("seventeen");
+				var $closet_fall = AEngine2.getSound("closet_fall");
+				var $laundry_hamper = AEngine2.getSound("laundry_hamper");
+				var $dirty_shirt = AEngine2.getSound("dirty_shirt");
+				var $clean_laundry = AEngine2.getSound("clean_laundry");
+				var $last_shirt = AEngine2.getSound("last_shirt");
+				var $narrator_intro = AEngine2.getSound("narrator_intro");
+				var $narrator_intro_vid = AEngine2.getThing("narrator_intro");
+                var $start = AEngine2.getSound("start");
+                var $aaron = AEngine2.getThing("aaron");
+                var $blackness = AEngine2.getThing("blackness");
+				var $record = AEngine2.getThing("record");
+				var $spin_record = AEngine2.getThing("spin_record");
+                var $shirt_putAway = new Array();
+                var $shirt = new Array();
+                var $closet_open;
+                var $opening_sequence_complete;
+				var $shirts_put_away;
+				var $poster_viewed;
+                var $shirtCount;
+                var $i;
+                var $closetCanBeOpened = false;
+                var $viewingCabinet = false;
+				var $viewingCloset = false;
+				var $viewingTurntable = false;
+				var $viewingPoster = false;
+				var $record_playing;
+				var $record_procured;
+                                
+                for($i = 0; $i &lt; 5; $i++){
+                	$shirt[$i] = AEngine2.getThing("shirt"+(($i+1).toString()));
+                }
+                				
+				for($i = 0; $i &lt; 5; $i++){
+				
+					$shirt_putAway[$i] = AEngine2.findGlobal("shirt_put_away_"+($i.toString()));
+				
+					if($shirt_putAway[$i] == null){
+						AEngine2.makeGlobal("shirt_put_away_"+$i.toString(), "false");
+						$shirt_putAway[$i] = AEngine2.findGlobal("shirt_put_away_"+$i.toString());
+					}	
+			
+					if(($shirt_putAway[$i].getValue() == "true") || (AEngine2.getItem("shirtItem"+$i.toString()) != null)) {
+						AEngine2.deleteItem($shirt[$i]);
+						$closetCanBeOpened = true;
+					}
+							
+				}
+               
+                $closet_open = AEngine2.findGlobal("closet_open");
+                if($closet_open == null){
+                	AEngine2.makeGlobal("closet_open","false");
+                	$closet_open = AEngine2.findGlobal("closet_open");
+                }
+				
+				$shirts_put_away = AEngine2.findGlobal("shirts_put_away");
+                if($shirts_put_away == null){
+                	AEngine2.makeGlobal("shirts_put_away","false");
+                	$shirts_put_away = AEngine2.findGlobal("shirts_put_away");
+                }
+				
+				$record_playing = AEngine2.findGlobal("record_playing");
+                if($record_playing == null){
+                	AEngine2.makeGlobal("record_playing","false");
+                	$record_playing = AEngine2.findGlobal("record_playing");
+                }
+				
+				$poster_viewed = AEngine2.findGlobal("poster_viewed");
+                if($poster_viewed == null){
+                	AEngine2.makeGlobal("poster_viewed","false");
+                	$poster_viewed = AEngine2.findGlobal("poster_viewed");
+                }
+				
+				$record_procured = AEngine2.findGlobal("record_procured");
+                if($record_procured == null){
+                	AEngine2.makeGlobal("record_procured","false");
+                	$record_procured = AEngine2.findGlobal("record_procured");
+                }                
+				
+                if($closet_open.getValue() == "true")
+                	AEngine2.getThing("closet").changeImage("game/level1/res/closetopen.png");
+                
+                $opening_sequence_complete = AEngine2.findGlobal("opening_sequence_complete");
+                if($opening_sequence_complete == null){
+                	AEngine2.makeGlobal("opening_sequence_complete", "false");
+                	$opening_sequence_complete = AEngine2.findGlobal("opening_sequence_complete");
+                }
+                
+                
+                $shirtCount = getShirtCount(); 
+                                       
+                AEngine2.setCharacter($aaron);
+            
+            if($opening_sequence_complete.getValue() == "false"){
+                AEngine2.getThing("aaron").mirrored = true;
+                AEngine2.addTrigger(AEngine2.now() + 28000, "$music.play();$opening_sequence_complete.setValue(\"true\");");  
+                AEngine2.addTrigger(AEngine2.now() + 24186, "AEngine2.deleteThing($blackness);");     
+                AEngine2.addTrigger(AEngine2.now() + 25500, "AEngine2.getThing(\"aaron\").mirrored = false;");  
+                
+                //Narration
+                AEngine2.addTrigger(AEngine2.now() + 77, "AEngine2.interactive = false; AEngine2.printLine(\"*KNOCK KNOCK KNOCK*\");");
+                AEngine2.addTrigger(AEngine2.now() + 1184, "AEngine2.printLine(\"DAD: Aaron, it's time to wake up, buddy. We've got to get ready to go!\");");
+                AEngine2.addTrigger(AEngine2.now() + 4598, "AEngine2.printLine(\"*KNOCK KNOCK KNOCK*\");");
+                AEngine2.addTrigger(AEngine2.now() + 5877, "AEngine2.printLine(\"DAD: ...You didn't forget, did you?\");");
+                AEngine2.addTrigger(AEngine2.now() + 7786, "AEngine2.printLine(\"DAD: I hope you at least remembered to clean up your room last night.\");");
+                AEngine2.addTrigger(AEngine2.now() + 10821, "AEngine2.printLine(\"DAD: If I see you coming out of a dirty bedroom, you can just forget this trip entirely.\");");
+                AEngine2.addTrigger(AEngine2.now() + 15373, "AEngine2.printLine(\"DAD: Hurry up and get ready. I'll be waiting with your mother in the living room.\");");
+                AEngine2.addTrigger(AEngine2.now() + 25973, "AEngine2.printLine(\"AARON: Crap, I'd better clean.\");");
+				AEngine2.addTrigger(AEngine2.now() + 26500, "AEngine2.interactive = true;");
+            	
+            
+                $start.play();
+            }else{
+                
+            	AEngine2.deleteThing($blackness);
+            	$music.play();
+            }
+                     
+				function aaronUse(){
+					$aaron.changeImage("game/global/aaronuse");
+					$aaron.animationOn = true;
+					AEngine2.addTrigger(AEngine2.now() + 250, "$aaron.changeImage(\"game/global/aaron\"); $aaron.setFrame(6); $aaron.animationOn = false;");
+				}
+					 
+                function getRecord(){
+            
+                    var $churro = AEngine2.makeItem("game/global/items/churro.png", "churro");
+                    AEngine2.deleteThing($record);
+                    AEngine2.appendItem($churro);
+                }
+				
+				function stopRecord(){
+					var $churro = AEngine2.makeItem("game/global/items/churro.png", "churro");
+                    $spin_record.hidden = true;
+                    AEngine2.appendItem($churro);
+					$record_playing.setValue("false");
+					$music2.stop();
+					$music.play();
+				}
+            
+				function startRecord(){
+					$music.stop();
+					$record_playing.setValue("true");
+					AEngine2.deleteItem(AEngine2.getItem("churro"));
+					AEngine2.setTool("look");
+					$spin_record.hidden = false;
+					$music2.play();
+				}
+				
+            	function getShirtCount() {
+            		var $thisCount = 0;
+            		
+            		for($j = 0; $j &lt; 5; $j++){
+                		if(($shirt_putAway[$j].getValue() == "true") || (AEngine2.getItem("shirtItem"+($j.toString())) != null))
+                			$thisCount++;
+                	}
+                	
+                	return $thisCount;
+                }
+            
+                function getShirt(shirtHandle){
+                	var $j;
+                	
+                	$shirtCount = getShirtCount();
+                	                	
+                	if($shirtCount == 1 &amp;&amp; $closet_open.getValue() == "false"){
+						$laundry_hamper.play();
+                		AEngine2.printLine("AARON: I gotta put this laundry in the hamper.");
+                	}else{
+						if(shirtHandle == 5) AEngine2.getThing("cabshirt").hidden = true;
+                		AEngine2.appendItem(AEngine2.makeItem("game/global/items/shirtitem"+(shirtHandle.toString()+".png"), "shirtItem"+(shirtHandle-1).toString()));
+                		AEngine2.deleteThing($shirt[shirtHandle-1]);
+                	}
+                }
+            
+                function openCloset(){
+                	$shirtCount = getShirtCount();
+                	var $putAway, $i;
+                	
+                		if($shirtCount &gt; 0){
+                			if($closet_open.getValue() == "false"){
+                				$closet_open.setValue("true");
+								aaronUse();
+                				AEngine2.getThing("closet").changeImage("game/level1/res/closetopen.png");
+                				//AEngine2.addTrigger(AEngine2.now()+500, "openCloset();");
+								narrator_cutscene();
+								
+                			}else{
+							    $viewingCloset = true;
+								AEngine2.getThing("closetinner").hidden = false;
+								AEngine2.getThing("backbutton").hidden = false;
+								$putAway = 0;
+								for($i = 0; $i &lt; 5; $i++){
+									if($shirt_putAway[$i].getValue() == "true")
+										$putAway++;
+								}
+								
+								print($putAway);
+								
+								for($i = 1; $i &lt;= $putAway; $i++)
+									AEngine2.getThing("basketshirt"+$i.toString()).hidden = false;
+							}
+                		}else{
+                			if($closet_open.getValue() == "false")
+								$clean_laundry.play();
+                				AEngine2.printLine("AARON: I should clean up some of this laundry."); 
+                		}
+                }
+               
+			   function narrator_cutscene(){
+					AEngine2.interactive = false;
+					$music.stop();
+					$music2.stop();
+					$closet_fall.play();
+					$narrator_intro.play();
+					$narrator_intro_vid.hidden = false;
+					
+					AEngine2.addTrigger(AEngine2.now()+123, "$narrator_intro_vid.setFrame(1); AEngine2.printLine(\"AARON: AUGH!\");");
+					AEngine2.addTrigger(AEngine2.now()+223, "$narrator_intro_vid.setFrame(2);");
+					AEngine2.addTrigger(AEngine2.now()+323, "$narrator_intro_vid.setFrame(3);");
+					AEngine2.addTrigger(AEngine2.now()+423, "$narrator_intro_vid.setFrame(4);");
+					AEngine2.addTrigger(AEngine2.now()+523, "$narrator_intro_vid.setFrame(5);");
+					AEngine2.addTrigger(AEngine2.now()+623, "$narrator_intro_vid.setFrame(6);");
+					AEngine2.addTrigger(AEngine2.now()+723, "$narrator_intro_vid.setFrame(7);");
+					AEngine2.addTrigger(AEngine2.now()+4101, "AEngine2.printLine(\"NARRATOR: You find yourself lying on the floor, your head pounding, and silently curse yourself for always hiding your messes in the closet.\");");
+					AEngine2.addTrigger(AEngine2.now()+11698, "$narrator_intro_vid.setFrame(8); AEngine2.printLine(\"AARON: I do?\");");
+					AEngine2.addTrigger(AEngine2.now()+12608, "$narrator_intro_vid.setFrame(7);");
+					AEngine2.addTrigger(AEngine2.now()+12717, "AEngine2.printLine(\"NARRATOR: Getting your bearings, you stand up and dust yourself off.\");");
+					AEngine2.addTrigger(AEngine2.now()+13539, "$narrator_intro_vid.setFrame(8);");
+					AEngine2.addTrigger(AEngine2.now()+14000, "$narrator_intro_vid.setFrame(9);");
+					AEngine2.addTrigger(AEngine2.now()+15000, "$narrator_intro_vid.setFrame(10);");
+					AEngine2.addTrigger(AEngine2.now()+16406, "$narrator_intro_vid.setFrame(11); AEngine2.printLine(\"AARON: I... I guess I do.\");");
+					AEngine2.addTrigger(AEngine2.now()+18123, "AEngine2.printLine(\"NARRATOR: Looking around, you realize that your room is now in a worse state than it was when you began.\");");
+					AEngine2.addTrigger(AEngine2.now()+22288, "$narrator_intro_vid.setFrame(10);");
+					AEngine2.addTrigger(AEngine2.now()+23413, "$narrator_intro_vid.setFrame(11); AEngine2.printLine(\"AARON: It sure is.\");");
+					AEngine2.addTrigger(AEngine2.now()+24362, "AEngine2.printLine(\"NARRATOR: And repress the deep-seated urge to burn it all to the ground and start over again.\");");
+					AEngine2.addTrigger(AEngine2.now()+29560, "AEngine2.printLine(\"NARRATOR: Perhaps in a country without extradition treaties.\");");
+					AEngine2.addTrigger(AEngine2.now()+31694, "$narrator_intro_vid.setFrame(10); AEngine2.printLine(\"AARON: Wait, what.\");");
+					AEngine2.addTrigger(AEngine2.now()+31948, "$narrator_intro_vid.setFrame(11);");
+					AEngine2.addTrigger(AEngine2.now()+32766, "$narrator_intro_vid.setFrame(10); AEngine2.printLine(\"NARRATOR: You shake your head.\");");
+					AEngine2.addTrigger(AEngine2.now()+33087, "$narrator_intro_vid.setFrame(11);");
+					AEngine2.addTrigger(AEngine2.now()+33464, "$narrator_intro_vid.setFrame(10); AEngine2.printLine(\"AARON: No, wait... Who are you?\");");
+					AEngine2.addTrigger(AEngine2.now()+35203, "AEngine2.printLine(\"NARRATOR: You wonder aloud.\");");
+					AEngine2.addTrigger(AEngine2.now()+35961, "$narrator_intro_vid.setFrame(11); AEngine2.printLine(\"AARON: Seriously, stop!\");");
+					AEngine2.addTrigger(AEngine2.now()+37192, "$narrator_intro_vid.setFrame(10); AEngine2.printLine(\"AARON: Who are you? What on earth is going on?\");");
+					AEngine2.addTrigger(AEngine2.now()+39921, "AEngine2.printLine(\"NARRATOR: Panic begins to set in as you contemplate the potential realities of your situ--\");");	
+					AEngine2.addTrigger(AEngine2.now()+43603, "$narrator_intro_vid.setFrame(11); AEngine2.printLine(\"AARON: HEY. I SWEAR TO GOD, SHUT IT. \");");	
+					AEngine2.addTrigger(AEngine2.now()+45698, "$narrator_intro_vid.setFrame(10); AEngine2.printLine(\"AARON: Now WHAT is going on? Am I going crazy?\");");	
+					AEngine2.addTrigger(AEngine2.now()+48678, "AEngine2.printLine(\"NARRATOR: I... Don't understand. Are you talking to ME?\");");	
+					AEngine2.addTrigger(AEngine2.now()+52917, "AEngine2.printLine(\"AARON: OBVIOUSLY.\");");	
+					AEngine2.addTrigger(AEngine2.now()+54342, "AEngine2.printLine(\"NARRATOR: Well... I'm the narrator of your life story.\");");
+					AEngine2.addTrigger(AEngine2.now()+57572, "AEngine2.printLine(\"AARON: My whatnow?\");");
+					AEngine2.addTrigger(AEngine2.now()+58831, "AEngine2.printLine(\"NARRATOR: I'm here to describe all of your inner machinations in such a way as to add deep human interest to the boring events of your everyday activities.\");");
+					AEngine2.addTrigger(AEngine2.now()+66784, "AEngine2.printLine(\"NARRATOR: I mean... you have heard of a narrator before, correct?\");");
+					AEngine2.addTrigger(AEngine2.now()+70081, "AEngine2.printLine(\"AARON: Yeah, I have heard of a narrator. But...\");");
+					AEngine2.addTrigger(AEngine2.now()+72811, "$narrator_intro_vid.setFrame(11); AEngine2.printLine(\"AARON: *SIGH* I don't have the time for MORE voices in my head. I need to get the rest of this laundry in the hamper and go meet my parents before they leave without me.\");");
+					AEngine2.addTrigger(AEngine2.now()+74154, "$narrator_intro_vid.setFrame(12);");
+					AEngine2.addTrigger(AEngine2.now()+74400, "$narrator_intro_vid.setFrame(13);");
+					AEngine2.addTrigger(AEngine2.now()+74650, "$narrator_intro_vid.setFrame(14);");
+					AEngine2.addTrigger(AEngine2.now()+74800, "$narrator_intro_vid.setFrame(15);");
+					AEngine2.addTrigger(AEngine2.now()+75050, "$narrator_intro_vid.setFrame(16);");
+					AEngine2.addTrigger(AEngine2.now()+75300, "$narrator_intro_vid.setFrame(17);");
+					AEngine2.addTrigger(AEngine2.now()+75550, "$narrator_intro_vid.setFrame(18);");
+					AEngine2.addTrigger(AEngine2.now()+75700, "$narrator_intro_vid.setFrame(19);");
+					AEngine2.addTrigger(AEngine2.now()+75950, "$narrator_intro_vid.setFrame(20);");
+					AEngine2.addTrigger(AEngine2.now()+76500, "$aaron.x = 300;$aaron.y = 135;$narrator_intro_vid.hidden = true;");
+					AEngine2.addTrigger(AEngine2.now()+82000, "if($record_playing.getValue() == \"true\") $music2.play(); else $music.play(); AEngine2.interactive = true;");
+			   }
+			   
+               function putShirtAway(){
+               		var $i;
+               		var $shirtFound = false;
+               		var $putAway;
+               		
+               		for($i = 0; $i &lt; 5; $i++){	
+               			if(AEngine2.getTool() == "shirtItem" + $i.toString()){
+               				$shirt_putAway[$i].setValue("true");
+               				AEngine2.deleteItem(AEngine2.getItem(AEngine2.getTool()));
+               				AEngine2.setTool("use");
+							$putAway = 0;
+							for($i = 0; $i &lt; 5; $i++){
+								if($shirt_putAway[$i].getValue() == "true") $putAway += 1;
+							}
+							if($putAway == 5){
+								AEngine2.interactive = false;
+								$last_shirt.play();
+								AEngine2.addTrigger(AEngine2.now() + 81, "AEngine2.printLine(\"AARON: Well, that's the last of them.\");");
+								AEngine2.addTrigger(AEngine2.now() + 1248, "AEngine2.printLine(\"NARRATOR: You say to yourself.\");");
+								AEngine2.addTrigger(AEngine2.now() + 2850, "AEngine2.printLine(\"AARON: This is going to get old REALLY fast.\");");
+								AEngine2.addTrigger(AEngine2.now() + 4670, "AEngine2.interactive = true;");
+								$shirts_put_away.setValue("true");
+							}
+               				if($closet_open.getValue() == "true"){
+               					openCloset();
+               				}
+               				break;
+               			}
+               		}
+               		
+               }
+        
+   			   function exitCloset(){
+   			   		var $i;
+   			   		$viewingCloset = false;
+					
+   			   		AEngine2.getThing("closetinner").hidden = true;
+					AEngine2.getThing("backbutton").hidden = true;
+					
+					for($i = 0; $i &lt; 5; $i++)
+						AEngine2.getThing("basketshirt"+($i+1).toString()).hidden = true;
+					
+   			   }
+   
+   			   function viewCabinet(){
+					$viewingCabinet = true;
+   			   		AEngine2.getThing("backbutton").hidden = false;
+   			   		AEngine2.getThing("cabinet").hidden = false;
+   			   		if(($shirt_putAway[4].getValue() != "true") &amp;&amp; (AEngine2.getItem("shirtItem4") == null))
+   			   			AEngine2.getThing("cabshirt").hidden = false;
+					if($record_procured.getValue() == "false")
+						$record.hidden = false;
+   			   }
+   			   
+   			   function exitCabinet(){
+					$viewingCabinet = false;
+   			   		AEngine2.getThing("cabinet").hidden = true;
+   			   		AEngine2.getThing("cabshirt").hidden = true;
+					$record.hidden = true;
+   			   }
+   			   
+			   
+			   function viewTurntable(){
+					$viewingTurntable = true;
+					AEngine2.getThing("backbutton").hidden = false;
+   			   		AEngine2.getThing("turntable").hidden = false;
+   			   		if($record_playing.getValue() == "true") 
+						AEngine2.getThing("spin_record").hidden = false;
+					else
+						AEngine2.getThing("spin_record").hidden = true;
+				}
+			   
+			   function exitTurntable(){
+					$viewingTurntable = false;
+   			   		AEngine2.getThing("turntable").hidden = true; 
+					AEngine2.getThing("spin_record").hidden = true;
+			   }
+			   
+			   function viewPoster(){
+					$viewingPoster = true;
+   			   		AEngine2.getThing("backbutton").hidden = false;
+   			   		AEngine2.getThing("posterenlarge").hidden = false;
+   			   		if($poster_viewed.getValue() == "false"){
+						if($closet_open.getValue() == "true"){
+							AEngine2.printLine("NARRATOR: It's the poster you bought when you went to see your favorite nusperimental speed-death black-core act, Churromonger, on their most recent tour. Looking at it, you fondly recall the gruesomeness of the onstage fan sacrifices.");
+							AEngine2.interactive = false;
+							AEngine2.getSound("narrator_poster").play();
+							AEngine2.addTrigger(AEngine2.now() + 12643 , "AEngine2.interactive = true;");
+						}else{
+							AEngine2.printLine("AARON: Some day, I'll be as great as Churromonger. Some day when I've tracked them down and eaten their hearts to gain their powers.");
+							AEngine2.interactive = false;
+							AEngine2.getSound("aaron_poster").play();
+							AEngine2.addTrigger(AEngine2.now() + 6267 , "AEngine2.interactive = true;");
+						}
+						$poster_viewed.setValue("true");
+					}
+				}
+			   
+			   function exitPoster(){
+					$viewingPoster = false;
+   			   		AEngine2.getThing("posterenlarge").hidden = true;
+			   }
+			   			   
+			   
+   			   function backButton(){
+					AEngine2.getThing("backbutton").hidden = true;
+   			   		if($viewingCloset)
+   			   			exitCloset();
+   			   		if($viewingCabinet)
+   			   			exitCabinet();
+					if($viewingTurntable)
+   			   			exitTurntable();
+					if($viewingPoster)
+   			   			exitPoster();
+   			   }
+   		
+			   function openDoor(){
+					if($shirts_put_away.getValue() == "true"){
+						aaronUse();
+						AEngine2.addTrigger(AEngine2.now() + 250, "AEngine2.getThing(\"door\").changeImage(\"game/level1/res/dooropen.png\"); goToLivingRoom();");
+					}else{
+						AEngine2.printLine("AARON: I've GOT to clean up these shirts or my dad is going to murder me with his discipline hatchet.");
+						AEngine2.interactive = false;
+						AEngine2.getSound("aaron_hatchet").play();
+						AEngine2.addTrigger(AEngine2.now() + 5584 , "AEngine2.interactive = true;");
+					} 
+					
+			   }
+			   
+			   function goToLivingRoom(){
+					AEngine2.interactive = false;
+					AEngine2.getThing("fadeout").hidden = false;
+					AEngine2.addTrigger(AEngine2.now() + 1100, "AEngine2.level = 'game/level2/level2.xml';");
+					AEngine2.getThing("fadeout").animationOn = true;
+				}
+			   
+			   function insultPlayer(){
+
+					var $waitLength = new Array(4000, 2229, 5000, 2995, 3228, 3516, 2206, 4354, 6908, 3831, 3646, 1219, 3831);
+			   
+					if($closet_open.getValue() == "true"){
+						AEngine2.interactive = false;
+						var $rnd = Math.floor(Math.random() * (12 - 0 + 1) + 0);
+						var $tempSound = AEngine2.makeSound("game/global/narrator/insult"+$rnd+".wav", "insult");
+						$tempSound.play();
+						AEngine2.addTrigger(AEngine2.now() + $waitLength[$rnd], "AEngine2.interactive = true;");
+					}
+					
+					
+			   }
+			   
+        </script>
+
+</level>
+
+

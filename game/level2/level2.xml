@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<level>
+       
+        <sound>
+            <file>game/level1/res/seventeen screws.mid</file>
+            <handle>seventeen</handle>
+        </sound>
+           
+        <thing>
+            <handle>background</handle>
+            <image>game/level2/res/background.png</image>
+            <z>0</z>
+			<onclick>
+				if(AEngine2.getTool() == "walk") AEngine2.walkTo(AEngine2.mousex, AEngine2.mousey, "");
+			</onclick>
+        </thing>    
+
+        <thing>
+            <handle>couch</handle>
+            <image>game/level2/res/couch.png</image>
+            <z>5</z>
+			<onclick>
+				if(AEngine2.getTool() == "walk") AEngine2.walkTo(AEngine2.mousex, AEngine2.mousey, "");
+			</onclick>
+        </thing>   
+        
+        <thing>
+            <handle>cabnet</handle>
+            <image>game/level2/res/cabnet.png</image>
+            <z>1</z>
+        </thing>
+
+        <thing>
+            <handle>door</handle>
+            <image>game/level2/res/door.png</image>
+            <z>1</z>
+			<x>480</x>
+			<y>40</y>
+			<onclick>
+				AEngine2.level = "game/level1/level1.xml";
+			</onclick>
+        </thing>
+
+        <thing>
+            <handle>table</handle>
+            <image>game/level2/res/table.png</image>
+            <z>1</z>
+            <x>386</x>
+            <y>140</y>
+        </thing>
+        
+        <walkmap>game/level2/res/walkmap.png</walkmap>
+                          
+        <thing>
+            <handle>aaron</handle>
+            <image>game/global/aaron</image>
+            <x>0</x>
+            <y>140</y>
+            <z>1</z>
+            <scale>1</scale>
+        </thing>
+                     
+	<script>
+            
+                var $music = AEngine2.getSound("seventeen");
+                var $aaron = AEngine2.getThing("aaron");
+            
+				AEngine2.interactive = true;
+			
+                $music.play();
+                                
+                AEngine2.setCharacter($aaron);          
+            
+                AEngine2.walkTo(50, 20, "");
+   
+        </script>
+
+</level>
+
+

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<level>
+      
+	<thing>
+		<handle>loading</handle>
+		<image>game/global/ui/loading.png</image>
+	</thing>
+            
+	<script>
+			
+			//AEngine2.makeGlobal("opening_sequence_complete", "true");
+			//AEngine2.makeGlobal("closet_open", "true");
+			AEngine2.addTrigger(AEngine2.now()+200, "AEngine2.level = 'game/level1/level1.xml';");   
+				   
+    </script>
+
+</level>
+
+
