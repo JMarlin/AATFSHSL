@@ -8,8 +8,16 @@
             
 	<script>
 			
-			//AEngine2.makeGlobal("opening_sequence_complete", "true");
-			//AEngine2.makeGlobal("closet_open", "true");
+			/*
+			AEngine2.makeGlobal("opening_sequence_complete", "true");
+			AEngine2.makeGlobal("closet_open", "true");
+			AEngine2.makeGlobal("shirt_put_away_0", "true");
+			AEngine2.makeGlobal("shirt_put_away_1", "true");
+			AEngine2.makeGlobal("shirt_put_away_2", "true");
+			AEngine2.makeGlobal("shirt_put_away_3", "true");
+			AEngine2.makeGlobal("shirt_put_away_4", "true");
+			AEngine2.makeGlobal("shirts_put_away", "true");
+			*/
 			AEngine2.addTrigger(AEngine2.now()+200, "AEngine2.level = 'game/level1/level1.xml';");   
 				   
     </script>

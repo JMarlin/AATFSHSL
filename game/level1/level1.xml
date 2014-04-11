@@ -119,6 +119,16 @@
 			<z>20</z>
 			<looped>false</looped>
 			<playing>false</playing>
+			<hidden>true</hidden>
+		</thing>
+		
+		<thing>
+			<image>game/global/ui/fadein</image>
+			<handle>fadein</handle>
+			<z>20</z>
+			<looped>false</looped>
+			<playing>false</playing>
+			<hidden>true</hidden>
 		</thing>
 			
         <thing>
@@ -514,7 +524,7 @@
 					}	
 			
 					if(($shirt_putAway[$i].getValue() == "true") || (AEngine2.getItem("shirtItem"+$i.toString()) != null)) {
-						AEngine2.deleteItem($shirt[$i]);
+						AEngine2.deleteThing($shirt[$i]);
 						$closetCanBeOpened = true;
 					}
 							
@@ -586,9 +596,28 @@
             }else{
                 
             	AEngine2.deleteThing($blackness);
-            	$music.play();
+            	
+				AEngine2.interactive = false;
+				AEngine2.getThing("fadein").hidden = false;
+				AEngine2.getThing("fadein").animationOn = true;
+				AEngine2.addTrigger(AEngine2.now() + 1100, "startLevel();");
+				
             }
-                     
+                   
+			function startLevel(){
+				AEngine2.getThing("fadein").hidden = true;
+				AEngine2.interactive = true;
+				if($record_playing == null){
+					$music.play();
+				}else{
+					if($record_playing.getValue() == "true"){
+						$music2.play();
+					}else{
+						$music.play();
+					}
+				}
+			}
+				   
 				function aaronUse(){
 					$aaron.changeImage("game/global/aaronuse");
 					$aaron.animationOn = true;

@@ -37,7 +37,7 @@
 			<x>480</x>
 			<y>40</y>
 			<onclick>
-				AEngine2.level = "game/level1/level1.xml";
+				if(AEngine2.getTool() == "use" || AEngine2.getTool() == "walk") AEngine2.walkTo(520,270,"openDoor();");
 			</onclick>
         </thing>
 
@@ -49,6 +49,22 @@
             <y>140</y>
         </thing>
         
+		<thing>
+			<image>game/global/ui/fadeout</image>
+			<handle>fadeout</handle>
+			<z>20</z>
+			<looped>false</looped>
+			<playing>false</playing>
+		</thing>
+		
+		<thing>
+			<image>game/global/ui/fadein</image>
+			<handle>fadein</handle>
+			<z>20</z>
+			<looped>false</looped>
+			<playing>false</playing>
+		</thing>
+		
         <walkmap>game/level2/res/walkmap.png</walkmap>
                           
         <thing>
@@ -65,13 +81,38 @@
                 var $music = AEngine2.getSound("seventeen");
                 var $aaron = AEngine2.getThing("aaron");
             
-				AEngine2.interactive = true;
-			
-                $music.play();
-                                
+				AEngine2.interactive = false;
+				AEngine2.getThing("fadein").hidden = false;
+				AEngine2.getThing("fadein").animationOn = true;
+				AEngine2.addTrigger(AEngine2.now() + 1100, "startLevel();");
+				                
                 AEngine2.setCharacter($aaron);          
             
                 AEngine2.walkTo(50, 20, "");
+				
+				function startLevel(){
+					AEngine2.getThing("fadein").hidden = true;
+					AEngine2.interactive = true;
+					$music.play();
+				}
+				
+				function aaronUse(){
+					$aaron.changeImage("game/global/aaronuse");
+					$aaron.animationOn = true;
+					AEngine2.addTrigger(AEngine2.now() + 250, "$aaron.changeImage(\"game/global/aaron\"); $aaron.setFrame(6); $aaron.animationOn = false;");
+				}
+				
+				function openDoor(){
+						aaronUse();
+						AEngine2.addTrigger(AEngine2.now() + 250, "goToBedroom();");					
+			   }
+			   
+			   function goToBedroom(){
+					AEngine2.interactive = false;
+					AEngine2.getThing("fadeout").hidden = false;
+					AEngine2.addTrigger(AEngine2.now() + 1100, "AEngine2.level = 'game/level1/level1.xml';");
+					AEngine2.getThing("fadeout").animationOn = true;
+				}
    
         </script>
 
